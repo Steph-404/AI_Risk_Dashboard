@@ -74,7 +74,7 @@ const TopBar = ({ onMenuClick, onSelectJunior }) => {
         
         {/* Search input */}
         <div className="relative hidden md:block" ref={searchRef}>
-          <div className="flex items-center gap-2 px-3 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl focus-within:border-cyan-500/50 transition-colors">
+          <div className="flex items-center gap-2 px-3 py-2 solid-mask rounded-xl focus-within:border-cyan-500/50 transition-colors">
             <Search size={16} className="text-gray-400 flex-shrink-0" />
             <input
               type="text"

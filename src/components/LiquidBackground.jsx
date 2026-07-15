@@ -46,39 +46,45 @@ const fragmentShaderSource = `
   }
 
   void main() {
-    // Normalize coordinates
+    // Normalize coordinates and zoom in to lower density
     vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
+    p *= 0.5; // Zoom in for lower density (larger, smoother shapes)
     
-    float t = u_time * 0.15; // Animation speed
+    // Non-linear time for "swootches" (surges of movement instead of linear)
+    float t = u_time * 0.08 + sin(u_time * 0.3) * 0.4;
 
-    // Domain warping for the "swirling plasma" folding effect
+    // Domain warping for the "swirling plasma" folding effect (reduced multipliers for less chaos)
     vec2 q = vec2(0.);
     q.x = snoise(p + vec2(0.0, 0.0) + t);
     q.y = snoise(p + vec2(5.2, 1.3) + t * 1.2);
 
     vec2 r = vec2(0.);
-    r.x = snoise(p + 4.0 * q + vec2(1.7, 9.2) + t * 0.7);
-    r.y = snoise(p + 4.0 * q + vec2(8.3, 2.8) + t * 0.9);
+    r.x = snoise(p + 1.5 * q + vec2(1.7, 9.2) + t * 0.7);
+    r.y = snoise(p + 1.5 * q + vec2(8.3, 2.8) + t * 0.9);
 
-    float f = snoise(p + 4.0 * r);
+    float f = snoise(p + 2.0 * r);
     
     // Smooth the noise
     f = (f + 1.0) * 0.5;
 
     // Define colors: Deep charcoal base, soft mauve, pink, dark purple
-    vec3 colorBase = vec3(0.067, 0.055, 0.075); // #110e13
+    vec3 colorBase = vec3(0.067, 0.055, 0.075); // #110e13 (Dark space)
     vec3 colorMid = vec3(0.474, 0.345, 0.502);  // #795880
     vec3 colorLight = vec3(0.651, 0.478, 0.584); // #a67a95
     vec3 colorAccent = vec3(0.549, 0.420, 0.549); // #8c6b8c
 
     // Mix colors based on turbulent noise values
-    vec3 color = mix(colorBase, colorMid, clamp((f*f)*2.0, 0.0, 1.0));
-    color = mix(color, colorAccent, clamp(length(q), 0.0, 1.0));
-    color = mix(color, colorLight, clamp(length(r.x), 0.0, 1.0) * 0.5);
+    // Use smoothstep to aggressively increase dark space (values below 0.5 stay dark)
+    float darkMask = smoothstep(0.45, 0.8, f);
+    vec3 color = mix(colorBase, colorMid, darkMask);
+    
+    // Add subtle accent and light colors only in the brightest parts
+    color = mix(color, colorAccent, smoothstep(0.5, 1.0, length(q)) * darkMask);
+    color = mix(color, colorLight, smoothstep(0.7, 1.0, length(r.x)) * 0.5 * darkMask);
 
-    // Add bright contrasting tendrils
-    float tendril = pow(abs(f - 0.5) * 2.0, 5.0);
-    color += colorLight * tendril * 0.8;
+    // Add sharp, sparse contrasting tendrils
+    float tendril = pow(abs(f - 0.5) * 2.0, 10.0);
+    color += colorLight * tendril * 0.6 * smoothstep(0.3, 0.6, f);
 
     gl_FragColor = vec4(color, 1.0);
   }
