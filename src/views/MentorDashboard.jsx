@@ -100,28 +100,28 @@ export default function MentorDashboard({ onSelectJunior }) {
       {/* ────────────────────────────────────────────────────────────
           0. Profile Overview Banner
           ──────────────────────────────────────────────────────────── */}
-      <div className="relative flex flex-col gap-6 overflow-hidden rounded-2xl bg-[#1A1A2E] border-l-[6px] border-[#F59E0B] p-6 shadow-xl xl:flex-row xl:items-center xl:justify-between">
+      <div className="relative flex flex-col gap-4 overflow-hidden rounded-2xl bg-[#1A1A2E] border-l-[6px] border-[#F59E0B] px-6 py-5 shadow-xl xl:flex-row xl:items-center xl:justify-between mb-2">
         {/* Left Section: Profile Info */}
-        <div className="flex items-center gap-5">
-          <div className="flex h-[72px] w-[72px] sm:h-20 sm:w-20 shrink-0 items-center justify-center rounded-full bg-[#F59E0B] text-2xl sm:text-3xl font-extrabold text-[#0F0F1A] shadow-lg shadow-amber-500/20">
+        <div className="flex items-center gap-4">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#F59E0B] text-2xl font-extrabold text-[#0F0F1A] shadow-lg shadow-amber-500/20">
             SM
           </div>
-          <div>
-            <h1 className="text-2xl font-bold text-white sm:text-3xl">Senior Mentor</h1>
-            <p className="mt-1 text-xs sm:text-sm font-medium text-slate-400">
-              Team Lead · The Bridge Verified · Nairobi HQ · Mentoring 24 Juniors
+          <div className="min-w-0">
+            <h1 className="text-xl font-bold text-white sm:text-2xl">Senior Mentor</h1>
+            <p className="mt-1 truncate text-xs font-medium text-slate-400">
+              Team Lead · Verified Mentor · Nairobi HQ · 24 Mentees
             </p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <span className="rounded bg-amber-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-amber-500 border border-amber-500/20">
+            <div className="mt-3 flex flex-wrap gap-2">
+              <span className="rounded bg-amber-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-amber-500 border border-amber-500/20">
                 Verified Mentor
               </span>
-              <span className="rounded bg-emerald-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-emerald-400 border border-emerald-500/20">
+              <span className="rounded bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-400 border border-emerald-500/20">
                 Active
               </span>
-              <span className="rounded bg-blue-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-blue-400 border border-blue-500/20">
+              <span className="rounded bg-blue-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-blue-400 border border-blue-500/20">
                 AI Partner
               </span>
-              <span className="rounded bg-purple-500/10 px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-purple-400 border border-purple-500/20">
+              <span className="rounded bg-purple-500/10 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-purple-400 border border-purple-500/20">
                 Tier 1 Lead
               </span>
             </div>
@@ -129,22 +129,22 @@ export default function MentorDashboard({ onSelectJunior }) {
         </div>
 
         {/* Right Section: Key Stats */}
-        <div className="flex flex-wrap items-center justify-between gap-6 sm:gap-10 xl:justify-end xl:text-center mt-2 xl:mt-0">
-          <div>
-            <p className="text-2xl font-bold text-[#F59E0B] sm:text-3xl">24</p>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">Mentees</p>
+        <div className="flex flex-nowrap items-center justify-between gap-6 xl:justify-end xl:gap-10 xl:text-center mt-1 xl:mt-0 overflow-x-auto pb-1 xl:pb-0 hide-scrollbar">
+          <div className="shrink-0">
+            <p className="text-xl font-bold text-[#F59E0B] sm:text-2xl">24</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Mentees</p>
           </div>
-          <div>
-            <p className="text-2xl font-bold text-[#F59E0B] sm:text-3xl">12</p>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">Pathways Active</p>
+          <div className="shrink-0">
+            <p className="text-xl font-bold text-[#F59E0B] sm:text-2xl">12</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Pathways</p>
           </div>
-          <div>
-            <p className="text-2xl font-bold text-[#F59E0B] sm:text-3xl">34</p>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">Interventions</p>
+          <div className="shrink-0">
+            <p className="text-xl font-bold text-[#F59E0B] sm:text-2xl">34</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Interventions</p>
           </div>
-          <div>
-            <p className="text-2xl font-bold text-[#F59E0B] sm:text-3xl">94%</p>
-            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-1">Success Rate</p>
+          <div className="shrink-0">
+            <p className="text-xl font-bold text-[#F59E0B] sm:text-2xl">94%</p>
+            <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 mt-0.5">Success Rate</p>
           </div>
         </div>
       </div>
