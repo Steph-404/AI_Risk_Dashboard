@@ -99,20 +99,21 @@ export default function JuniorProfileModal({ junior, onClose }) {
         >
           {/* ── Modal Content ────────────────── */}
           <motion.div
-            className="glass-strong relative w-full max-w-[900px] max-h-[90vh] overflow-y-auto rounded-2xl"
+            className="glass-strong relative w-full max-w-[900px] max-h-[90vh] overflow-hidden flex flex-col rounded-2xl"
             variants={modalVariants}
             initial="hidden"
             animate="visible"
             exit="exit"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 z-20 flex h-9 w-9 items-center justify-center rounded-full
-                         bg-white/5 text-gray-400 transition hover:bg-white/10 hover:text-white"
-              aria-label="Close modal"
-            >
+            <div className="flex-1 overflow-y-auto">
+              {/* Close button */}
+              <button
+                onClick={onClose}
+                className="absolute top-4 right-4 z-20 flex h-9 w-9 items-center justify-center rounded-full
+                           bg-white/5 text-gray-400 transition hover:bg-white/10 hover:text-white"
+                aria-label="Close modal"
+              >
               <X size={18} />
             </button>
 
@@ -414,8 +415,10 @@ export default function JuniorProfileModal({ junior, onClose }) {
               </motion.section>
             </div>
 
-        {/* Pathway Details Modal (Renders on top if selected) */}
-        <AnimatePresence>
+            </div>
+
+            {/* Pathway Details Modal (Renders on top if selected) */}
+            <AnimatePresence>
           {selectedPathway && (
             <PathwayDetailsModal
               pathway={selectedPathway}
