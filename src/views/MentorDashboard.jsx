@@ -27,14 +27,36 @@ import RiskBadge from '../components/RiskBadge';
 
 /* ─── Static Data ───────────────────────────────────────────────── */
 
-const riskTrendData = [
-  { month: 'Jan', avgRisk: 45, highRisk: 1, lowRisk: 2 },
-  { month: 'Feb', avgRisk: 48, highRisk: 1, lowRisk: 2 },
-  { month: 'Mar', avgRisk: 52, highRisk: 2, lowRisk: 1 },
-  { month: 'Apr', avgRisk: 55, highRisk: 2, lowRisk: 1 },
-  { month: 'May', avgRisk: 58, highRisk: 2, lowRisk: 1 },
-  { month: 'Jun', avgRisk: 59, highRisk: 2, lowRisk: 1 },
-];
+const riskTrendDataMap = {
+  '1W': [
+    { month: 'Mon', avgRisk: 55, highRisk: 2, lowRisk: 1 },
+    { month: 'Tue', avgRisk: 57, highRisk: 2, lowRisk: 1 },
+    { month: 'Wed', avgRisk: 54, highRisk: 1, lowRisk: 2 },
+    { month: 'Thu', avgRisk: 51, highRisk: 1, lowRisk: 2 },
+    { month: 'Fri', avgRisk: 53, highRisk: 1, lowRisk: 2 },
+    { month: 'Sat', avgRisk: 58, highRisk: 2, lowRisk: 1 },
+    { month: 'Sun', avgRisk: 59, highRisk: 2, lowRisk: 1 },
+  ],
+  '1M': [
+    { month: 'Week 1', avgRisk: 52, highRisk: 1, lowRisk: 2 },
+    { month: 'Week 2', avgRisk: 50, highRisk: 1, lowRisk: 2 },
+    { month: 'Week 3', avgRisk: 55, highRisk: 2, lowRisk: 1 },
+    { month: 'Week 4', avgRisk: 59, highRisk: 2, lowRisk: 1 },
+  ],
+  '3M': [
+    { month: 'Apr', avgRisk: 48, highRisk: 1, lowRisk: 2 },
+    { month: 'May', avgRisk: 52, highRisk: 2, lowRisk: 1 },
+    { month: 'Jun', avgRisk: 59, highRisk: 2, lowRisk: 1 },
+  ],
+  '6M': [
+    { month: 'Jan', avgRisk: 45, highRisk: 1, lowRisk: 2 },
+    { month: 'Feb', avgRisk: 48, highRisk: 1, lowRisk: 2 },
+    { month: 'Mar', avgRisk: 52, highRisk: 2, lowRisk: 1 },
+    { month: 'Apr', avgRisk: 55, highRisk: 2, lowRisk: 1 },
+    { month: 'May', avgRisk: 58, highRisk: 2, lowRisk: 1 },
+    { month: 'Jun', avgRisk: 59, highRisk: 2, lowRisk: 1 },
+  ],
+};
 
 const FILTER_OPTIONS = ['1W', '1M', '3M', '6M'];
 
@@ -267,7 +289,7 @@ export default function MentorDashboard({ onSelectJunior }) {
         {/* Chart */}
         <ResponsiveContainer width="100%" height={280}>
           <AreaChart
-            data={riskTrendData}
+            data={riskTrendDataMap[activeFilter]}
             margin={{ top: 20, right: 30, left: 0, bottom: 10 }}
           >
             <defs>
