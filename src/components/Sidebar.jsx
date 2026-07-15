@@ -30,7 +30,7 @@ const navSections = [
 
 function SidebarContent() {
   return (
-    <div className="flex h-full flex-col bg-[#0c0c18] border-r border-white/5">
+    <div className="flex h-full w-full flex-col bg-[#0c0c18] border-r border-white/5">
       {/* Brand / Logo */}
       <div className="px-6 pt-8 pb-6">
         <div className="flex items-center gap-3">
@@ -114,7 +114,7 @@ export default function Sidebar({ isOpen = false, onClose }) {
   return (
     <>
       {/* Desktop sidebar — always visible on lg+ */}
-      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-[260px]">
+      <aside className="hidden lg:fixed lg:inset-y-0 lg:left-0 lg:z-40 lg:flex lg:w-64">
         <SidebarContent />
       </aside>
 
@@ -136,7 +136,7 @@ export default function Sidebar({ isOpen = false, onClose }) {
             {/* Drawer */}
             <motion.aside
               key="sidebar-drawer"
-              className="fixed inset-y-0 left-0 z-50 w-[260px] lg:hidden"
+              className="fixed inset-y-0 left-0 z-50 w-64 lg:hidden"
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
