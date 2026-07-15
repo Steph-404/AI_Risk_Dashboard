@@ -33,7 +33,10 @@ function App() {
       {/* Main Content Area */}
       <div className="main-content-wrapper max-w-[100vw]">
         {/* Top Bar */}
-        <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
+        <TopBar 
+          onMenuClick={() => setSidebarOpen(!sidebarOpen)} 
+          onSelectJunior={handleSelectJunior}
+        />
 
         {/* Page Content */}
         <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-y-auto">

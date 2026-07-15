@@ -1,22 +1,44 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, Search, Bell, CheckCircle, AlertTriangle, Info, Check } from 'lucide-react';
-import { notifications } from '../data/mockData';
+import { notifications, juniors } from '../data/mockData';
 
-const TopBar = ({ onMenuClick }) => {
+const TopBar = ({ onMenuClick, onSelectJunior }) => {
   const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  
   const notifRef = useRef(null);
+  const searchRef = useRef(null);
 
-  // Close dropdown when clicking outside
+  // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (notifRef.current && !notifRef.current.contains(event.target)) {
         setIsNotifOpen(false);
       }
+      if (searchRef.current && !searchRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+      }
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
+
+  // Filter juniors for search
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+    return juniors.filter((junior) => 
+      junior.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      junior.role.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }, [searchQuery]);
+
+  const handleSelectSearchResult = (junior) => {
+    onSelectJunior(junior);
+    setSearchQuery('');
+    setIsSearchOpen(false);
+  };
 
   return (
     <motion.header
@@ -49,14 +71,64 @@ const TopBar = ({ onMenuClick }) => {
 
       {/* Right side */}
       <div className="flex items-center gap-3">
+        
         {/* Search input */}
-        <div className="hidden md:flex items-center gap-2 px-3 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl focus-within:border-cyan-500/50 transition-colors">
-          <Search size={16} className="text-gray-400 flex-shrink-0" />
-          <input
-            type="text"
-            placeholder="Search team members..."
-            className="bg-transparent text-sm text-white placeholder-gray-500 outline-none w-44 lg:w-56"
-          />
+        <div className="relative hidden md:block" ref={searchRef}>
+          <div className="flex items-center gap-2 px-3 py-2 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl focus-within:border-cyan-500/50 transition-colors">
+            <Search size={16} className="text-gray-400 flex-shrink-0" />
+            <input
+              type="text"
+              placeholder="Search team members..."
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setIsSearchOpen(true);
+              }}
+              onFocus={() => setIsSearchOpen(true)}
+              className="bg-transparent text-sm text-white placeholder-gray-500 outline-none w-44 lg:w-56"
+            />
+          </div>
+
+          {/* Search Dropdown */}
+          <AnimatePresence>
+            {isSearchOpen && searchQuery.trim().length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                transition={{ duration: 0.2 }}
+                className="absolute top-full left-0 right-0 mt-2 rounded-2xl bg-[#1A1A2E]/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden z-50"
+              >
+                {searchResults.length > 0 ? (
+                  <div className="max-h-[300px] overflow-y-auto custom-scrollbar p-2 space-y-1">
+                    {searchResults.map((junior) => (
+                      <div
+                        key={junior.id}
+                        onClick={() => handleSelectSearchResult(junior)}
+                        className="flex items-center gap-3 p-2 rounded-xl hover:bg-white/5 transition-colors cursor-pointer group"
+                      >
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 overflow-hidden ring-1 ring-white/10 group-hover:ring-[#00D4AA]/50 transition-colors">
+                          <img 
+                            src={`https://api.dicebear.com/7.x/bottts/svg?seed=${junior.name}&backgroundColor=transparent`} 
+                            alt={`${junior.name} mascot`}
+                            className="h-full w-full object-cover scale-110"
+                          />
+                        </div>
+                        <div>
+                          <p className="font-medium text-white text-sm group-hover:text-[#00D4AA] transition-colors">{junior.name}</p>
+                          <p className="text-xs text-slate-500">{junior.role}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="p-4 text-center text-sm text-slate-400">
+                    No team members found for "{searchQuery}"
+                  </div>
+                )}
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         {/* Notification bell */}
