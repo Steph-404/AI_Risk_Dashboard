@@ -385,8 +385,12 @@ export default function MentorDashboard({ onSelectJunior }) {
                       {/* Name + Avatar */}
                       <td>
                         <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#00D4AA] to-[#7C3AED] text-xs font-bold text-white">
-                            {getInitials(junior.name)}
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 overflow-hidden ring-1 ring-white/10">
+                            <img 
+                              src={`https://api.dicebear.com/7.x/bottts/svg?seed=${junior.name}&backgroundColor=transparent`} 
+                              alt={`${junior.name} mascot`}
+                              className="h-full w-full object-cover scale-110"
+                            />
                           </div>
                           <div>
                             <p className="font-medium text-white">
