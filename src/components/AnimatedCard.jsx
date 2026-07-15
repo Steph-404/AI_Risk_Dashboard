@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 
 const VARIANT_GRADIENTS = {
-  cyan: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, #00D4AA 75%, #7C3AED 90%, transparent 100%)',
+  cyan: 'conic-gradient(from 0deg, transparent 0%, transparent 80%, #00D4AA 87.5%, #7C3AED 95%, transparent 100%)',
   purple:
-    'conic-gradient(from 0deg, transparent 0%, transparent 60%, #7C3AED 75%, #a855f7 90%, transparent 100%)',
+    'conic-gradient(from 0deg, transparent 0%, transparent 80%, #7C3AED 87.5%, #a855f7 95%, transparent 100%)',
   amber:
-    'conic-gradient(from 0deg, transparent 0%, transparent 60%, #F59E0B 75%, #EF4444 90%, transparent 100%)',
+    'conic-gradient(from 0deg, transparent 0%, transparent 80%, #F59E0B 87.5%, #EF4444 95%, transparent 100%)',
 };
 
 export default function AnimatedCard({
