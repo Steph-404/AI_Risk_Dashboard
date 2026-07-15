@@ -97,7 +97,7 @@ const TopBar = ({ onMenuClick, onSelectJunior }) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 5 }}
                 transition={{ duration: 0.2 }}
-                className="absolute top-full left-0 right-0 mt-2 rounded-2xl bg-[#1A1A2E]/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden z-50"
+                className="absolute top-full left-0 right-0 mt-2 rounded-2xl solid-mask shadow-2xl overflow-hidden z-50"
               >
                 {searchResults.length > 0 ? (
                   <div className="max-h-[300px] overflow-y-auto custom-scrollbar p-2 space-y-1">
@@ -154,7 +154,7 @@ const TopBar = ({ onMenuClick, onSelectJunior }) => {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 10, scale: 0.95 }}
                 transition={{ duration: 0.2 }}
-                className="absolute right-0 mt-3 w-80 rounded-2xl bg-[#1A1A2E]/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden z-50"
+                className="absolute top-full right-0 mt-2 w-80 sm:w-96 rounded-2xl solid-mask shadow-2xl overflow-hidden z-50 origin-top-right"
               >
                 <div className="p-4 border-b border-white/10 flex items-center justify-between bg-black/20">
                   <h3 className="font-bold text-white text-sm">Notifications</h3>
