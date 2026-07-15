@@ -1,8 +1,23 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Menu, Search, Bell } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, Search, Bell, CheckCircle, AlertTriangle, Info, Check } from 'lucide-react';
+import { notifications } from '../data/mockData';
 
 const TopBar = ({ onMenuClick }) => {
+  const [isNotifOpen, setIsNotifOpen] = useState(false);
+  const notifRef = useRef(null);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (notifRef.current && !notifRef.current.contains(event.target)) {
+        setIsNotifOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -10 }}
@@ -45,22 +60,73 @@ const TopBar = ({ onMenuClick }) => {
         </div>
 
         {/* Notification bell */}
-        <button
-          className="relative p-2.5 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 text-gray-400 hover:text-white hover:bg-white/10 transition-colors"
-          aria-label="Notifications"
-        >
-          <Bell size={18} />
-          <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#0a0a1a]" />
-        </button>
+        <div className="relative" ref={notifRef}>
+          <button
+            onClick={() => setIsNotifOpen(!isNotifOpen)}
+            className={`relative p-2.5 rounded-full backdrop-blur-sm border transition-colors ${
+              isNotifOpen 
+                ? 'bg-white/10 border-white/20 text-white' 
+                : 'bg-white/5 border-white/10 text-gray-400 hover:text-white hover:bg-white/10'
+            }`}
+            aria-label="Notifications"
+          >
+            <Bell size={18} />
+            <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full ring-2 ring-[#0a0a1a]" />
+          </button>
+
+          {/* Notification Dropdown */}
+          <AnimatePresence>
+            {isNotifOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                transition={{ duration: 0.2 }}
+                className="absolute right-0 mt-3 w-80 rounded-2xl bg-[#1A1A2E]/95 backdrop-blur-xl border border-white/10 shadow-2xl overflow-hidden z-50"
+              >
+                <div className="p-4 border-b border-white/10 flex items-center justify-between bg-black/20">
+                  <h3 className="font-bold text-white text-sm">Notifications</h3>
+                  <button className="text-xs text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1">
+                    <Check size={14} /> Mark all as read
+                  </button>
+                </div>
+                
+                <div className="max-h-[300px] overflow-y-auto custom-scrollbar">
+                  {notifications.map((notif) => (
+                    <div 
+                      key={notif.id}
+                      className="p-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer flex gap-3 group"
+                    >
+                      <div className="shrink-0 mt-0.5">
+                        {notif.type === 'warning' && <AlertTriangle size={16} className="text-red-400" />}
+                        {notif.type === 'success' && <CheckCircle size={16} className="text-emerald-400" />}
+                        {notif.type === 'info' && <Info size={16} className="text-cyan-400" />}
+                      </div>
+                      <div>
+                        <p className="text-sm text-slate-200 leading-snug group-hover:text-white transition-colors">{notif.message}</p>
+                        <p className="text-xs text-slate-500 mt-1">{notif.time}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                <div className="p-3 bg-black/20 text-center">
+                  <button className="text-xs font-semibold text-slate-400 hover:text-white transition-colors">
+                    View all notifications
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* User avatar */}
-        <div
-          className="w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold text-white cursor-pointer flex-shrink-0"
-          style={{
-            background: 'linear-gradient(135deg, #06b6d4, #8b5cf6)',
-          }}
-        >
-          SM
+        <div className="w-10 h-10 rounded-full flex items-center justify-center bg-white/5 overflow-hidden ring-1 ring-white/10 cursor-pointer shadow-lg">
+          <img 
+            src="https://api.dicebear.com/7.x/bottts/svg?seed=SeniorMentor&backgroundColor=transparent" 
+            alt="Senior Mentor Mascot"
+            className="w-full h-full object-cover scale-110"
+          />
         </div>
       </div>
     </motion.header>

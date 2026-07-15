@@ -1,3 +1,4 @@
+import React, { useState, useEffect, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
@@ -49,7 +50,7 @@ function SidebarContent() {
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 space-y-6 px-3 overflow-y-auto">
+      <nav className="flex-1 space-y-6 px-3 overflow-y-auto custom-scrollbar">
         {navSections.map((section) => (
           <div key={section.label}>
             <p className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-widest text-slate-500">
@@ -71,10 +72,10 @@ function SidebarContent() {
                     }
                   >
                     <item.icon className="h-[18px] w-[18px] shrink-0" />
-                    <span>{item.name}</span>
+                    <span className="truncate">{item.name}</span>
 
                     {item.badge != null && (
-                      <span className="ml-auto flex h-5 min-w-[20px] items-center justify-center rounded-full bg-gradient-to-r from-red-500 to-amber-500 px-1.5 text-[10px] font-bold text-white shadow-lg shadow-red-500/25">
+                      <span className="ml-auto flex h-5 min-w-[20px] shrink-0 items-center justify-center rounded-full bg-gradient-to-r from-red-500 to-amber-500 px-1.5 text-[10px] font-bold text-white shadow-lg shadow-red-500/25">
                         {item.badge}
                       </span>
                     )}
@@ -112,11 +113,60 @@ function SidebarContent() {
 }
 
 export default function Sidebar({ isOpen = false, onClose }) {
+  const [sidebarWidth, setSidebarWidth] = useState(260);
+  const [isResizing, setIsResizing] = useState(false);
+
+  const startResizing = useCallback(() => {
+    setIsResizing(true);
+  }, []);
+
+  const stopResizing = useCallback(() => {
+    setIsResizing(false);
+  }, []);
+
+  const resize = useCallback(
+    (mouseMoveEvent) => {
+      if (isResizing) {
+        const newWidth = mouseMoveEvent.clientX;
+        // Restrict min/max width
+        if (newWidth >= 200 && newWidth <= 450) {
+          setSidebarWidth(newWidth);
+        }
+      }
+    },
+    [isResizing]
+  );
+
+  useEffect(() => {
+    if (isResizing) {
+      window.addEventListener('mousemove', resize);
+      window.addEventListener('mouseup', stopResizing);
+    }
+    return () => {
+      window.removeEventListener('mousemove', resize);
+      window.removeEventListener('mouseup', stopResizing);
+    };
+  }, [isResizing, resize, stopResizing]);
+
   return (
     <>
       {/* Desktop sidebar — always visible on lg+ */}
-      <aside className="sidebar-container">
-        <SidebarContent />
+      <aside 
+        className="sidebar-container relative flex"
+        style={{ width: `${sidebarWidth}px` }}
+      >
+        <div className="flex-1 overflow-hidden">
+          <SidebarContent />
+        </div>
+        
+        {/* Resize Handle */}
+        <div 
+          className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#00D4AA]/50 active:bg-[#00D4AA] transition-colors z-50 flex items-center justify-center group"
+          onMouseDown={startResizing}
+        >
+          {/* Visual indicator (optional) */}
+          <div className="h-8 w-0.5 bg-white/20 rounded-full group-hover:bg-white/50 transition-colors" />
+        </div>
       </aside>
 
       {/* Mobile sidebar — slide-in drawer */}
