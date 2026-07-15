@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { opportunities } from '../data/mockData';
 import AnimatedCard from '../components/AnimatedCard';
+import OpportunityDetailsModal from './OpportunityDetailsModal';
 
 /* =============================================
    Category colour mapping
@@ -182,6 +183,7 @@ export default function OpportunityPulse() {
   const [skillMatchFilter, setSkillMatchFilter] = useState('All');
   const [salaryFilter, setSalaryFilter] = useState('All');
   const [categoryFilter, setCategoryFilter] = useState('All');
+  const [selectedOpportunity, setSelectedOpportunity] = useState(null);
 
   // Derive filtered opportunities
   const filtered = useMemo(() => {
@@ -438,7 +440,11 @@ export default function OpportunityPulse() {
                 </div>
 
                 {/* CTA */}
-                <button type="button" className="btn-secondary w-full justify-center group">
+                <button 
+                  type="button" 
+                  className="btn-secondary w-full justify-center group"
+                  onClick={() => setSelectedOpportunity(opp)}
+                >
                   <Briefcase size={14} />
                   Learn More
                   <ArrowRight
@@ -475,6 +481,12 @@ export default function OpportunityPulse() {
           </p>
         </motion.div>
       )}
+
+      {/* Details Modal */}
+      <OpportunityDetailsModal 
+        opportunity={selectedOpportunity} 
+        onClose={() => setSelectedOpportunity(null)} 
+      />
     </div>
   );
 }
