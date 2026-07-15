@@ -46,45 +46,48 @@ const fragmentShaderSource = `
   }
 
   void main() {
-    // Normalize coordinates and zoom in to lower density
+    // Normalize coordinates and zoom in to lower density significantly
     vec2 p = (gl_FragCoord.xy * 2.0 - u_resolution.xy) / min(u_resolution.x, u_resolution.y);
-    p *= 0.5; // Zoom in for lower density (larger, smoother shapes)
+    p *= 0.35; // Zoom in for lower density (very large, smooth shapes)
     
-    // Non-linear time for "swootches" (surges of movement instead of linear)
-    float t = u_time * 0.08 + sin(u_time * 0.3) * 0.4;
+    // Non-linear time for "swootches" (surges of movement)
+    float t1 = u_time * 0.05 + sin(u_time * 0.2) * 0.3;
+    float t2 = u_time * 0.04 + cos(u_time * 0.15) * 0.4;
 
-    // Domain warping for the "swirling plasma" folding effect (reduced multipliers for less chaos)
+    // Layer 1: Liquid flowing in one direction
     vec2 q = vec2(0.);
-    q.x = snoise(p + vec2(0.0, 0.0) + t);
-    q.y = snoise(p + vec2(5.2, 1.3) + t * 1.2);
+    q.x = snoise(p + vec2(0.0, 0.0) + t1);
+    q.y = snoise(p + vec2(5.2, 1.3) + t1 * 1.2);
 
+    // Layer 2: Liquid flowing in a different direction and intersecting
     vec2 r = vec2(0.);
-    r.x = snoise(p + 1.5 * q + vec2(1.7, 9.2) + t * 0.7);
-    r.y = snoise(p + 1.5 * q + vec2(8.3, 2.8) + t * 0.9);
+    r.x = snoise(p + vec2(1.7, 9.2) - t2 * 0.8);
+    r.y = snoise(p + vec2(8.3, 2.8) - t2 * 1.1);
 
-    float f = snoise(p + 2.0 * r);
+    // Combine them for the "interaction" of two liquids
+    // We warp the space with q and r, then evaluate noise
+    float f1 = snoise(p + 1.2 * q);
+    float f2 = snoise(p + 1.2 * r);
+    
+    // Mix the two fields so they clash and swoosh into each other
+    float f = (f1 * 0.5 + f2 * 0.5);
     
     // Smooth the noise
     f = (f + 1.0) * 0.5;
 
     // Define colors: Deep charcoal base, soft mauve, pink, dark purple
     vec3 colorBase = vec3(0.067, 0.055, 0.075); // #110e13 (Dark space)
-    vec3 colorMid = vec3(0.474, 0.345, 0.502);  // #795880
-    vec3 colorLight = vec3(0.651, 0.478, 0.584); // #a67a95
-    vec3 colorAccent = vec3(0.549, 0.420, 0.549); // #8c6b8c
+    vec3 colorMid = vec3(0.35, 0.25, 0.38);  // Darker midtone for less pronunciation
+    vec3 colorLight = vec3(0.55, 0.4, 0.5); // Softer light tone
+    vec3 colorAccent = vec3(0.45, 0.35, 0.45); 
 
-    // Mix colors based on turbulent noise values
-    // Use smoothstep to aggressively increase dark space (values below 0.5 stay dark)
-    float darkMask = smoothstep(0.45, 0.8, f);
+    // Dramatically increase dark space: values below 0.6 stay pure dark
+    float darkMask = smoothstep(0.58, 0.85, f);
     vec3 color = mix(colorBase, colorMid, darkMask);
     
-    // Add subtle accent and light colors only in the brightest parts
-    color = mix(color, colorAccent, smoothstep(0.5, 1.0, length(q)) * darkMask);
-    color = mix(color, colorLight, smoothstep(0.7, 1.0, length(r.x)) * 0.5 * darkMask);
-
-    // Add sharp, sparse contrasting tendrils
-    float tendril = pow(abs(f - 0.5) * 2.0, 10.0);
-    color += colorLight * tendril * 0.6 * smoothstep(0.3, 0.6, f);
+    // Add subtle accent and light colors only in the very brightest parts
+    color = mix(color, colorAccent, smoothstep(0.65, 1.0, length(q)) * darkMask);
+    color = mix(color, colorLight, smoothstep(0.75, 1.0, length(r)) * 0.4 * darkMask);
 
     gl_FragColor = vec4(color, 1.0);
   }
