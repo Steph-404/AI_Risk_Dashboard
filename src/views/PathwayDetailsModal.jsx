@@ -121,7 +121,7 @@ export default function PathwayDetailsModal({ pathway, junior, onClose }) {
       {/* Footer CTA */}
       <div className="p-4 border-t border-white/10 bg-[#1A1A2E]/80 backdrop-blur-md shrink-0 flex justify-end">
         <button className="flex items-center gap-2 px-6 py-2.5 rounded-lg bg-gradient-to-r from-cyan-500 to-purple-500 text-white font-bold text-sm hover:opacity-90 transition hover:shadow-lg hover:shadow-cyan-500/25">
-          Enroll Junior in Pathway <ArrowRight size={16} />
+          Enroll Mentee in Pathway <ArrowRight size={16} />
         </button>
       </div>
     </motion.div>
