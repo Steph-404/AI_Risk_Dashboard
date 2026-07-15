@@ -6,6 +6,7 @@ import TopBar from './components/TopBar';
 import MentorDashboard from './views/MentorDashboard';
 import Team from './views/Team';
 import OpportunityPulse from './views/OpportunityPulse';
+import LiquidBackground from './components/LiquidBackground';
 import JuniorProfileModal from './views/JuniorProfileModal';
 import Settings from './views/Settings';
 import Support from './views/Support';
@@ -25,12 +26,7 @@ function App() {
 
   return (
     <div className="app-layout bg-transparent relative z-0">
-      {/* Liquid Ambient Background */}
-      <div className="liquid-bg-container">
-        <div className="liquid-wave-1"></div>
-        <div className="liquid-wave-2"></div>
-        <div className="liquid-wave-3"></div>
-      </div>
+      <LiquidBackground />
 
       {/* Sidebar */}
       <Sidebar
