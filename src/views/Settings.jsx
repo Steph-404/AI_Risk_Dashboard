@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { 
   User, Mail, MapPin, Briefcase, Bell, Shield, 
@@ -43,9 +43,28 @@ export default function Settings() {
   // Show save success banner
   const [saved, setSaved] = useState(false);
 
+  // Avatar state
+  const [avatar, setAvatar] = useState("https://api.dicebear.com/7.x/bottts/svg?seed=SeniorMentor&backgroundColor=transparent");
+  const fileInputRef = useRef(null);
+
   const handleSave = () => {
     setSaved(true);
     setTimeout(() => setSaved(false), 3000);
+  };
+
+  const handleAvatarChange = (e) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setAvatar(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
   };
 
   return (
@@ -112,17 +131,30 @@ export default function Settings() {
             <div className="flex flex-col sm:flex-row gap-6 mb-6">
               {/* Avatar Upload */}
               <div className="shrink-0 flex flex-col items-center gap-3">
-                <div className="relative h-24 w-24 rounded-full bg-[#0c0c18] border-2 border-white/10 overflow-hidden group">
+                <input 
+                  type="file" 
+                  ref={fileInputRef} 
+                  onChange={handleAvatarChange} 
+                  accept="image/*" 
+                  className="hidden" 
+                />
+                <div 
+                  className="relative h-24 w-24 rounded-full bg-[#0c0c18] border-2 border-white/10 overflow-hidden group cursor-pointer"
+                  onClick={triggerFileInput}
+                >
                   <img 
-                    src="https://api.dicebear.com/7.x/bottts/svg?seed=SeniorMentor&backgroundColor=transparent" 
+                    src={avatar} 
                     alt="Profile" 
                     className="h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer">
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     <Camera className="text-white" size={24} />
                   </div>
                 </div>
-                <button className="text-xs font-medium text-slate-400 hover:text-white transition">
+                <button 
+                  onClick={triggerFileInput}
+                  className="text-xs font-medium text-slate-400 hover:text-white transition"
+                >
                   Change Avatar
                 </button>
               </div>
