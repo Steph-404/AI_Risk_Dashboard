@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 const VARIANT_GRADIENTS = {
   cyan: 'conic-gradient(from 0deg, transparent 0%, transparent 60%, #00D4AA 75%, #7C3AED 90%, transparent 100%)',
   purple:
-    'conic-gradient(from 0deg, transparent 0%, transparent 60%, #7C3AED 75%, #a855f7 90%, transparent 100%)',
+    'conic-gradient(from 0deg, transparent 0%, transparent 60%, #a855f7 75%, #d8b4fe 90%, transparent 100%)',
   amber:
     'conic-gradient(from 0deg, transparent 0%, transparent 60%, #F59E0B 75%, #EF4444 90%, transparent 100%)',
 };
@@ -19,8 +19,7 @@ export default function AnimatedCard({
 
   return (
     <motion.div
-      className={`relative rounded-2xl p-[1px] overflow-hidden ${className}`}
-      style={{ transform: 'translateZ(0)', isolation: 'isolate' }}
+      className={`relative rounded-2xl p-[1px] ${className}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -34,20 +33,32 @@ export default function AnimatedCard({
           : undefined
       }
     >
-      {/* Rotating gradient border */}
+      {/* Deliberate blurred glowing aura (50% size of original glitch) */}
       <motion.div
-        className="absolute inset-[-50%]"
+        className="absolute inset-[-15%] opacity-40 blur-[20px]"
         style={{ background: gradient }}
         animate={{ rotate: 360 }}
-        transition={{
-          duration: 4,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
       />
 
+      {/* Crisp 1px border (robust WebKit clip) */}
+      <div 
+        className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none"
+        style={{ 
+          maskImage: 'linear-gradient(white, white)', 
+          WebkitMaskImage: 'linear-gradient(white, white)' 
+        }}
+      >
+        <motion.div
+          className="absolute inset-[-50%]"
+          style={{ background: gradient }}
+          animate={{ rotate: 360 }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'linear' }}
+        />
+      </div>
+
       {/* Card content */}
-      <div className="relative z-10 rounded-2xl bg-[#1A1A2E] p-5">
+      <div className="relative z-10 h-full rounded-2xl bg-[#1A1A2E] p-5">
         {children}
       </div>
     </motion.div>
