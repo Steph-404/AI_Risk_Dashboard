@@ -117,43 +117,40 @@ export default function JuniorProfileModal({ junior, onClose }) {
               {/* ============================
                   HEADER
                   ============================ */}
-              <section className="space-y-5">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6">
+              <section className="space-y-6">
+                <div className="animated-border-card animated-border-card-purple relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 overflow-hidden rounded-2xl bg-[#1A1A2E]/60 px-6 py-6 shadow-2xl z-10">
                   {/* Left – Avatar + Info */}
-                  <div className="flex items-start gap-4">
+                  <div className="flex items-center gap-5 z-10 relative w-full sm:w-auto">
                     {/* Avatar */}
-                    <div
-                      className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full
-                                 text-xl font-bold text-white"
-                      style={{
-                        background: 'linear-gradient(135deg, #00D4AA, #7C3AED)',
-                      }}
-                    >
-                      {junior.avatar}
+                    <div className="flex h-[72px] w-[72px] sm:h-[88px] sm:w-[88px] shrink-0 items-center justify-center rounded-full bg-white/5 overflow-hidden ring-2 ring-cyan-500/50 shadow-lg shadow-cyan-500/20">
+                      <img 
+                        src={`https://api.dicebear.com/7.x/bottts/svg?seed=${junior.name}&backgroundColor=transparent`} 
+                        alt={`${junior.name} Mascot`}
+                        className="h-full w-full object-cover scale-110"
+                      />
                     </div>
-
-                    <div className="space-y-1">
-                      <h2 className="text-2xl font-bold text-white leading-tight">
+                    <div className="min-w-0">
+                      <h2 className="text-2xl sm:text-3xl font-extrabold text-white leading-tight truncate">
                         {junior.name}
                       </h2>
-                      <p className="text-sm text-gray-400">
-                        {junior.role}
-                        <span className="mx-2 text-gray-600">•</span>
-                        {junior.tenure}
+                      <p className="mt-1 text-xs sm:text-sm font-medium text-cyan-400/90 truncate">
+                        {junior.role} <span className="mx-2 text-white/20">•</span> {junior.tenure}
                       </p>
-                      <p className="text-sm italic text-gray-500">{junior.feeling}</p>
+                      <p className="mt-2 text-xs italic text-slate-400 truncate">
+                        Status: <span className="text-white/70">{junior.feeling}</span>
+                      </p>
                     </div>
                   </div>
 
                   {/* Right – Risk Gauge */}
-                  <div className="flex-shrink-0 self-center sm:self-start">
-                    <RiskGauge score={junior.riskScore} size={130} />
+                  <div className="flex-shrink-0 self-center z-10 relative">
+                    <RiskGauge score={junior.riskScore} size={110} />
                   </div>
                 </div>
 
                 {/* Sentiment Quote */}
-                <div className="border-l-2 border-cyan-500/40 pl-4 py-1">
-                  <p className="text-sm italic text-gray-400 leading-relaxed">
+                <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-cyan-500/10 to-transparent p-5 border-l-4 border-cyan-500">
+                  <p className="text-sm italic text-gray-300 leading-relaxed font-medium">
                     &ldquo;{junior.sentiment}&rdquo;
                   </p>
                 </div>
@@ -179,29 +176,32 @@ export default function JuniorProfileModal({ junior, onClose }) {
                     return (
                       <motion.div
                         key={task.name}
-                        className="rounded-xl bg-white/[0.03] p-4 border border-white/[0.04]"
+                        className="relative overflow-hidden rounded-xl bg-[#1A1A2E]/50 p-5 border border-white/[0.05] shadow-lg"
                         variants={fadeUp}
                       >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-gray-300">
+                        <div className="flex items-center justify-between mb-3">
+                          <span className="text-sm font-semibold text-white tracking-wide">
                             {task.name}
                           </span>
-                          <span className={`text-sm font-bold ${color.text}`}>
+                          <span className={`text-lg font-extrabold ${color.text}`} style={{ textShadow: `0 0 15px ${color.bar}40` }}>
                             {task.automationRisk}%
                           </span>
                         </div>
 
-                        {/* Progress bar */}
-                        <div className="h-1.5 w-full rounded-full bg-white/[0.06] overflow-hidden">
+                        {/* Glowing Progress bar */}
+                        <div className="h-2 w-full rounded-full bg-[#0F0F1A] overflow-hidden ring-1 ring-white/5">
                           <motion.div
                             className="h-full rounded-full"
-                            style={{ backgroundColor: color.bar }}
+                            style={{ 
+                              backgroundColor: color.bar,
+                              boxShadow: `0 0 12px ${color.bar}, 0 0 4px ${color.bar}`
+                            }}
                             initial={{ width: 0 }}
                             animate={{ width: `${task.automationRisk}%` }}
                             transition={{
-                              duration: 0.9,
+                              duration: 1.2,
                               delay: 0.2 + idx * 0.1,
-                              ease: 'easeOut',
+                              ease: [0.16, 1, 0.3, 1], // Custom spring-like ease out
                             }}
                           />
                         </div>
