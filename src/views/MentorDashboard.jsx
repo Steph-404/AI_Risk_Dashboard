@@ -80,7 +80,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   if (!active || !payload?.length) return null;
 
   return (
-    <div className="rounded-xl glass-panel px-4 py-3 shadow-xl">
+    <div className="rounded-xl border border-white/10 bg-[#1A1A2E]/90 px-4 py-3 shadow-xl backdrop-blur-xl">
       <p className="mb-1 text-xs font-semibold text-white/60">{label}</p>
       {payload.map((entry) => (
         <p key={entry.dataKey} className="text-sm" style={{ color: entry.color }}>
@@ -108,7 +108,7 @@ export default function MentorDashboard() {
       {/* ────────────────────────────────────────────────────────────
           0. Profile Overview Banner
           ──────────────────────────────────────────────────────────── */}
-      <div className="animated-border-card animated-border-card-amber relative flex flex-col gap-4 overflow-hidden glass-panel px-6 py-5 shadow-xl xl:flex-row xl:items-center xl:justify-between mb-2 z-10">
+      <div className="animated-border-card animated-border-card-amber relative flex flex-col gap-4 overflow-hidden bg-[#1A1A2E] px-6 py-5 shadow-xl xl:flex-row xl:items-center xl:justify-between mb-2 z-10">
         <div className="flex items-center gap-4 z-10 relative">
           <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#F59E0B]/10 overflow-hidden ring-2 ring-amber-500 shadow-lg shadow-amber-500/20">
             <img 
