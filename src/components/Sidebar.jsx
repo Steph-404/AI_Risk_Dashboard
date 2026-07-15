@@ -34,17 +34,14 @@ function SidebarContent() {
       {/* Brand / Logo */}
       <div className="px-6 pt-8 pb-6">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500/20 to-purple-600/20 ring-1 ring-cyan-400/20">
-            <Waypoints className="h-5 w-5 text-cyan-400" />
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F59E0B] text-white shadow-lg shadow-amber-500/20">
+            <span className="text-lg font-extrabold">B</span>
           </div>
-          <div>
-            <h1
-              className="text-[15px] font-bold tracking-wide text-white"
-              style={{ textShadow: '0 0 20px rgba(0,212,170,0.35)' }}
-            >
+          <div className="overflow-hidden">
+            <h1 className="text-[15px] font-bold tracking-widest text-white uppercase truncate">
               THE BRIDGE
             </h1>
-            <p className="text-[10px] uppercase tracking-widest text-slate-500">
+            <p className="text-[10px] uppercase tracking-widest text-slate-500 mt-0.5 truncate">
               AI Risk Intelligence
             </p>
           </div>
@@ -68,7 +65,7 @@ function SidebarContent() {
                       [
                         'group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200',
                         isActive
-                          ? 'border-l-2 border-cyan-400 bg-gradient-to-r from-cyan-500/10 to-purple-600/10 text-cyan-400'
+                          ? 'border-l-2 border-amber-500 bg-white/[0.06] text-white'
                           : 'border-l-2 border-transparent text-slate-400 hover:bg-white/[0.04] hover:text-white',
                       ].join(' ')
                     }
@@ -90,15 +87,15 @@ function SidebarContent() {
       </nav>
 
       {/* User Profile */}
-      <div className="border-t border-white/5 p-4">
+      <div className="border-t border-white/5 p-4 mt-auto">
         <div className="flex items-center gap-3 rounded-xl p-2 transition-colors duration-200 hover:bg-white/[0.04]">
           <div className="relative shrink-0">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 text-sm font-bold text-white shadow-lg shadow-cyan-500/20">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F59E0B] text-sm font-bold text-white shadow-lg shadow-amber-500/20">
               SM
             </div>
             <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0c0c18] bg-emerald-400" />
           </div>
-          <div className="min-w-0 flex-1">
+          <div className="flex-1 overflow-hidden">
             <p className="truncate text-sm font-semibold text-white">
               Senior Mentor
             </p>
