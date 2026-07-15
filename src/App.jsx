@@ -4,6 +4,7 @@ import { AnimatePresence } from 'framer-motion';
 import Sidebar from './components/Sidebar';
 import TopBar from './components/TopBar';
 import MentorDashboard from './views/MentorDashboard';
+import Team from './views/Team';
 import OpportunityPulse from './views/OpportunityPulse';
 import JuniorProfileModal from './views/JuniorProfileModal';
 import Settings from './views/Settings';
@@ -48,8 +49,9 @@ function App() {
               />
               <Route
                 path="/team"
-                element={<MentorDashboard onSelectJunior={handleSelectJunior} />}
+                element={<Team onSelectJunior={handleSelectJunior} />}
               />
+
               <Route
                 path="/opportunities"
                 element={<OpportunityPulse />}

@@ -7,6 +7,9 @@ export const juniors = [
     avatar: 'AO',
     riskLevel: 'LOW',
     riskScore: 25,
+    stage: 'Transition Ready',
+    budgetUsed: 120000,
+    budgetTotal: 150000,
     sentiment: 'Administration is the price I pay for doing what I love.',
     feeling: 'Restrained, yearning',
     tasks: [
@@ -55,6 +58,9 @@ export const juniors = [
     avatar: 'KM',
     riskLevel: 'HIGH',
     riskScore: 78,
+    stage: 'At Risk',
+    budgetUsed: 25000,
+    budgetTotal: 150000,
     sentiment: 'I am here to learn everything I can.',
     feeling: 'Curious, optimistic, naive',
     tasks: [
@@ -104,6 +110,9 @@ export const juniors = [
     avatar: 'FA',
     riskLevel: 'HIGH',
     riskScore: 82,
+    stage: 'Exploring Pathways',
+    budgetUsed: 0,
+    budgetTotal: 150000,
     sentiment: 'Documentation would have saved me weeks of confusion.',
     feeling: 'Overwhelmed, abandoned, hopeful',
     tasks: [
@@ -153,6 +162,9 @@ export const juniors = [
     avatar: 'DN',
     riskLevel: 'MEDIUM',
     riskScore: 52,
+    stage: 'Actively Upskilling',
+    budgetUsed: 75000,
+    budgetTotal: 150000,
     sentiment: 'Production and learning keep me valuable.',
     feeling: 'Ambitious',
     tasks: [
@@ -299,4 +311,44 @@ export const notifications = [
   { id: 2, message: 'Fatima completed dbt Fundamentals course', time: '5 hours ago', type: 'success' },
   { id: 3, message: 'New pathway match: AI System Trainer for Kwame', time: '1 day ago', type: 'info' },
   { id: 4, message: 'David Nkrumah started ML Crash Course', time: '2 days ago', type: 'info' },
+];
+
+export const priorityActions = [
+  { id: 1, title: 'Flight Risk Alert', description: 'Fatima\'s sentiment dropped significantly while risk remains high.', type: 'danger', actionText: 'Schedule 1-on-1' },
+  { id: 2, title: 'Pathway Approval', description: 'Kwame selected the AI System Trainer pathway.', type: 'warning', actionText: 'Review & Approve' },
+  { id: 3, title: 'Budget Nearing Limit', description: 'Amara has used 80% of her training budget.', type: 'info', actionText: 'View Usage' },
+];
+
+export const teamSkillsRadar = [
+  { subject: 'Python', current: 65, required: 90, fullMark: 100 },
+  { subject: 'Data Mod.', current: 85, required: 80, fullMark: 100 },
+  { subject: 'Prompt Eng.', current: 40, required: 85, fullMark: 100 },
+  { subject: 'AI Ethics', current: 55, required: 70, fullMark: 100 },
+  { subject: 'Strategy', current: 70, required: 75, fullMark: 100 },
+  { subject: 'CI/CD', current: 30, required: 65, fullMark: 100 },
+];
+
+export const activityFeed = [
+  { id: 1, text: 'Kwame Mensah completed "Intro to Prompt Engineering"', time: '2 hours ago', type: 'success' },
+  { id: 2, text: 'Fatima Al-Rashid\'s risk score increased to 82', time: '5 hours ago', type: 'danger' },
+  { id: 3, text: 'David Nkrumah submitted a pathway proposal', time: '1 day ago', type: 'info' },
+  { id: 4, text: 'Amara Osei updated her sentiment survey', time: '1 day ago', type: 'neutral' },
+  { id: 5, text: 'Training budget refreshed for Q3', time: '2 days ago', type: 'success' },
+];
+
+export const mentorshipBandwidth = {
+  activeInterventions: 3,
+  upcoming1on1s: 4,
+  capacity: 85, // percentage
+};
+
+export const peerPairings = [
+  { id: 1, mentor: 'David Nkrumah', mentee: 'Kwame Mensah', skill: 'Python Fundamentals', matchScore: 92 },
+  { id: 2, mentor: 'Amara Osei', mentee: 'Fatima Al-Rashid', skill: 'Stakeholder Comms', matchScore: 88 },
+];
+
+export const upcomingMilestones = [
+  { id: 1, mentee: 'Kwame Mensah', task: 'Complete ML Crash Course', date: 'Today', type: 'urgent' },
+  { id: 2, mentee: 'Amara Osei', task: 'Present GIS findings', date: 'Thursday', type: 'normal' },
+  { id: 3, mentee: 'Fatima Al-Rashid', task: 'Submit BI Strategy Draft', date: 'Next Monday', type: 'normal' },
 ];
