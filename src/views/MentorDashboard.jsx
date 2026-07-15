@@ -122,11 +122,15 @@ export default function MentorDashboard({ onSelectJunior }) {
       {/* ────────────────────────────────────────────────────────────
           0. Profile Overview Banner
           ──────────────────────────────────────────────────────────── */}
-      <div className="relative flex flex-col gap-4 overflow-hidden rounded-2xl bg-[#1A1A2E] border-l-[6px] border-[#F59E0B] px-6 py-5 shadow-xl xl:flex-row xl:items-center xl:justify-between mb-2">
+      <div className="animated-border-card animated-border-card-amber relative flex flex-col gap-4 overflow-hidden bg-[#1A1A2E] px-6 py-5 shadow-xl xl:flex-row xl:items-center xl:justify-between mb-2 z-10">
         {/* Left Section: Profile Info */}
-        <div className="flex items-center gap-4">
-          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#F59E0B] text-2xl font-extrabold text-[#0F0F1A] shadow-lg shadow-amber-500/20">
-            SM
+        <div className="flex items-center gap-4 z-10 relative">
+          <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-[#F59E0B]/10 overflow-hidden ring-2 ring-amber-500 shadow-lg shadow-amber-500/20">
+            <img 
+              src="https://api.dicebear.com/7.x/bottts/svg?seed=SeniorMentor&backgroundColor=transparent" 
+              alt="Senior Mentor Mascot"
+              className="h-full w-full object-cover scale-110"
+            />
           </div>
           <div className="min-w-0">
             <h1 className="text-xl font-bold text-white sm:text-2xl">Senior Mentor</h1>

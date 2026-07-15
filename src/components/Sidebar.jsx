@@ -90,8 +90,12 @@ function SidebarContent() {
       <div className="border-t border-white/5 p-4 mt-auto">
         <div className="flex items-center gap-3 rounded-xl p-2 transition-colors duration-200 hover:bg-white/[0.04]">
           <div className="relative shrink-0">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F59E0B] text-sm font-bold text-white shadow-lg shadow-amber-500/20">
-              SM
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F59E0B]/10 overflow-hidden ring-1 ring-amber-500 shadow-lg shadow-amber-500/20">
+              <img 
+                src="https://api.dicebear.com/7.x/bottts/svg?seed=SeniorMentor&backgroundColor=transparent" 
+                alt="Senior Mentor Mascot"
+                className="h-full w-full object-cover scale-110"
+              />
             </div>
             <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-[#0c0c18] bg-emerald-400" />
           </div>
