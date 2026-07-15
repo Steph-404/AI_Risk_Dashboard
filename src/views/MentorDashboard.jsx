@@ -388,8 +388,11 @@ export default function MentorDashboard({ onSelectJunior }) {
                     >
                       {/* Name + Avatar */}
                       <td>
-                        <div className="flex items-center gap-3">
-                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 overflow-hidden ring-1 ring-white/10">
+                        <div 
+                          className="flex items-center gap-3 cursor-pointer group/profile"
+                          onClick={() => onSelectJunior(junior)}
+                        >
+                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/5 overflow-hidden ring-1 ring-white/10 transition-colors group-hover/profile:ring-[#00D4AA]/50">
                             <img 
                               src={`https://api.dicebear.com/7.x/bottts/svg?seed=${junior.name}&backgroundColor=transparent`} 
                               alt={`${junior.name} mascot`}
@@ -397,7 +400,7 @@ export default function MentorDashboard({ onSelectJunior }) {
                             />
                           </div>
                           <div>
-                            <p className="font-medium text-white">
+                            <p className="font-medium text-white transition-colors group-hover/profile:text-[#00D4AA]">
                               {junior.name}
                             </p>
                             <p className="text-xs text-slate-500">

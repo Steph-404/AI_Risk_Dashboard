@@ -6,6 +6,8 @@ import TopBar from './components/TopBar';
 import MentorDashboard from './views/MentorDashboard';
 import OpportunityPulse from './views/OpportunityPulse';
 import JuniorProfileModal from './views/JuniorProfileModal';
+import Settings from './views/Settings';
+import Support from './views/Support';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -48,6 +50,14 @@ function App() {
               <Route
                 path="/opportunities"
                 element={<OpportunityPulse />}
+              />
+              <Route
+                path="/settings"
+                element={<Settings />}
+              />
+              <Route
+                path="/support"
+                element={<Support />}
               />
             </Routes>
           </AnimatePresence>
