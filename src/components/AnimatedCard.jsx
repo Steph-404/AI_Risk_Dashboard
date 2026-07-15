@@ -20,6 +20,7 @@ export default function AnimatedCard({
   return (
     <motion.div
       className={`relative rounded-2xl p-[1px] overflow-hidden ${className}`}
+      style={{ transform: 'translateZ(0)', isolation: 'isolate' }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
@@ -35,7 +36,7 @@ export default function AnimatedCard({
     >
       {/* Rotating gradient border */}
       <motion.div
-        className="absolute inset-[-50%] opacity-50"
+        className="absolute inset-[-50%]"
         style={{ background: gradient }}
         animate={{ rotate: 360 }}
         transition={{
