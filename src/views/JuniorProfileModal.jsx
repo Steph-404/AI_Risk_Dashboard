@@ -424,6 +424,7 @@ export default function JuniorProfileModal({ junior, onClose }) {
             />
           )}
         </AnimatePresence>
+      </div>
       </motion.div>
     </motion.div>
       )}
