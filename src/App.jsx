@@ -21,7 +21,7 @@ function App() {
   }, []);
 
   return (
-    <div className="flex min-h-screen bg-[#0F0F1A]">
+    <div className="app-layout bg-[#0F0F1A]">
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
@@ -29,7 +29,7 @@ function App() {
       />
 
       {/* Main Content Area */}
-      <div className="flex-1 flex flex-col lg:pl-64 w-full max-w-[100vw]">
+      <div className="main-content-wrapper max-w-[100vw]">
         {/* Top Bar */}
         <TopBar onMenuClick={() => setSidebarOpen(!sidebarOpen)} />
 

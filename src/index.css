@@ -24,6 +24,45 @@
 }
 
 /* ========================================
+   Layout Structure
+   ======================================== */
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.sidebar-container {
+  display: none;
+  width: 260px;
+  flex-shrink: 0;
+  background-color: #0c0c18;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+@media (min-width: 1024px) {
+  .sidebar-container {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 40;
+  }
+  .main-content-wrapper {
+    padding-left: 260px;
+  }
+}
+
+.main-content-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* ========================================
    Base Styles
    ======================================== */
 * {
