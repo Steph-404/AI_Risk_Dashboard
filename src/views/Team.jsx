@@ -252,7 +252,7 @@ export default function Team({ onSelectJunior }) {
             {KANBAN_STAGES.map((stage) => {
               const stageJuniors = filteredJuniors.filter(j => j.stage === stage);
               return (
-                <div key={stage} className="min-w-[280px] flex-1 bg-black/20 rounded-xl border border-white/5 p-4 snap-start">
+                <div key={stage} className="min-w-[280px] flex-1 glass-panel rounded-xl border border-white/5 p-4 snap-start">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="text-sm font-bold text-slate-300 uppercase tracking-wider">{stage}</h3>
                     <span className="bg-white/10 text-white text-xs font-bold px-2 py-0.5 rounded-full">{stageJuniors.length}</span>
@@ -262,7 +262,7 @@ export default function Team({ onSelectJunior }) {
                       <div 
                         key={junior.id} 
                         onClick={() => onSelectJunior(junior)}
-                        className="bg-[#1A1A2E] border border-white/10 rounded-xl p-3 cursor-pointer hover:border-[#00D4AA]/50 hover:shadow-lg hover:shadow-cyan-500/10 transition-all group"
+                        className="glass-panel border border-white/10 rounded-xl p-3 cursor-pointer hover:border-[#00D4AA]/50 hover:shadow-lg hover:shadow-cyan-500/10 transition-all group"
                       >
                         <div className="flex items-center gap-3 mb-3">
                           <div className="h-8 w-8 rounded-full bg-white/5 overflow-hidden">
@@ -437,7 +437,7 @@ export default function Team({ onSelectJunior }) {
           </div>
           <div className="space-y-3">
             {upcomingMilestones.map(milestone => (
-              <div key={milestone.id} className="flex gap-4 items-start p-3 rounded-xl bg-black/20 border border-white/5">
+              <div key={milestone.id} className="flex gap-4 items-start p-3 rounded-xl glass-panel border border-white/5">
                 <div className={`shrink-0 w-12 text-center py-1 rounded bg-white/5 border ${milestone.type === 'urgent' ? 'border-amber-500/50 text-amber-400' : 'border-white/10 text-slate-400'}`}>
                   <p className="text-[10px] font-bold uppercase">{milestone.date === 'Today' ? 'TDY' : milestone.date.substring(0,3)}</p>
                 </div>

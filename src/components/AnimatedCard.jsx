@@ -42,7 +42,7 @@ export default function AnimatedCard({
       />
 
       {/* Card content */}
-      <div className="relative z-10 h-full rounded-2xl bg-[#1A1A2E] p-5">
+      <div className="glass-panel relative z-10 h-full rounded-2xl p-5">
         {children}
       </div>
     </motion.div>

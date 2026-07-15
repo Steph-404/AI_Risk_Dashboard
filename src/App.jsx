@@ -24,7 +24,14 @@ function App() {
   }, []);
 
   return (
-    <div className="app-layout bg-[#0F0F1A]">
+    <div className="app-layout bg-transparent relative z-0">
+      {/* Liquid Ambient Background */}
+      <div className="liquid-bg-container">
+        <div className="liquid-wave-1"></div>
+        <div className="liquid-wave-2"></div>
+        <div className="liquid-wave-3"></div>
+      </div>
+
       {/* Sidebar */}
       <Sidebar
         isOpen={sidebarOpen}
