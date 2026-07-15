@@ -412,7 +412,7 @@ export default function JuniorProfileModal({ junior, onClose }) {
                   </div>
                 </div>
               </motion.section>
-            </motion.div>
+            </div>
 
         {/* Pathway Details Modal (Renders on top if selected) */}
         <AnimatePresence>
@@ -424,9 +424,8 @@ export default function JuniorProfileModal({ junior, onClose }) {
             />
           )}
         </AnimatePresence>
-      </div>
-      </motion.div>
-    </motion.div>
+          </motion.div>
+        </motion.div>
       )}
     </AnimatePresence>
   );
