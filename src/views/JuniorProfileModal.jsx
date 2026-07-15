@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X,
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import RiskGauge from '../components/RiskGauge';
 import AnimatedCard from '../components/AnimatedCard';
+import PathwayDetailsModal from './PathwayDetailsModal';
 
 /* ──────────────────────────────────────────
    Helpers
@@ -66,6 +67,8 @@ const fadeUp = {
    Component
    ────────────────────────────────────────── */
 export default function JuniorProfileModal({ junior, onClose }) {
+  const [selectedPathway, setSelectedPathway] = useState(null);
+
   /* Guard – nothing to render */
   if (!junior) return null;
 
@@ -337,12 +340,10 @@ export default function JuniorProfileModal({ junior, onClose }) {
 
                         {/* CTA */}
                         <button
-                          className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg
-                                     py-2 text-xs font-semibold text-white transition
-                                     hover:shadow-lg hover:shadow-cyan-500/20 hover:-translate-y-0.5"
-                          style={{
-                            background: 'linear-gradient(135deg, #00D4AA, #7C3AED)',
-                          }}
+                          onClick={() => setSelectedPathway(pathway)}
+                          className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg
+                                     py-2 text-xs font-semibold text-cyan-400 transition border border-cyan-500/20 bg-cyan-500/5
+                                     hover:bg-cyan-500/10 hover:border-cyan-500/40 hover:-translate-y-0.5"
                         >
                           Take First Step
                           <ArrowRight size={14} />
@@ -411,9 +412,20 @@ export default function JuniorProfileModal({ junior, onClose }) {
                   </div>
                 </div>
               </motion.section>
-            </div>
-          </motion.div>
-        </motion.div>
+            </motion.div>
+
+        {/* Pathway Details Modal (Renders on top if selected) */}
+        <AnimatePresence>
+          {selectedPathway && (
+            <PathwayDetailsModal
+              pathway={selectedPathway}
+              junior={junior}
+              onClose={() => setSelectedPathway(null)}
+            />
+          )}
+        </AnimatePresence>
+      </motion.div>
+    </motion.div>
       )}
     </AnimatePresence>
   );
